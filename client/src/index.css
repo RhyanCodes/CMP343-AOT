@@ -1,0 +1,609 @@
+/* ───── Reset & Global ───── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+/* ───── Intro / Titan Animation ───── */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.wall {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45vh;
+  background: linear-gradient(0deg, #3a2a1a 0%, #5c4033 40%, #7a6652 100%);
+  z-index: 2;
+}
+
+.wall::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(0deg, #5c4033, #8b7355);
+  border-top: 4px solid #2a1a0a;
+}
+
+/* brick pattern */
+.wall::after {
+  content: "";
+  position: absolute;
+  inset: 30px 0 0 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 48px,
+      #2a1a0a 48px,
+      #2a1a0a 50px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 98px,
+      #2a1a0a 98px,
+      #2a1a0a 100px
+    );
+  opacity: 0.3;
+}
+
+.titan {
+  position: absolute;
+  bottom: 42vh;
+  z-index: 1;
+  animation: titanPeek 3s ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes titanPeek {
+  0% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.titan-face {
+  width: 180px;
+  height: 220px;
+  background: radial-gradient(ellipse at center, #d4a574 0%, #b8845a 60%, #8b6340 100%);
+  border-radius: 50% 50% 45% 45%;
+  position: relative;
+  box-shadow: 0 0 40px rgba(180, 100, 50, 0.4);
+}
+
+.titan-eye {
+  position: absolute;
+  width: 30px;
+  height: 20px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  top: 80px;
+  animation: titanBlink 4s infinite;
+}
+
+.titan-eye.left {
+  left: 35px;
+}
+
+.titan-eye.right {
+  right: 35px;
+}
+
+.titan-eye::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #ff4444;
+  border-radius: 50%;
+  top: 4px;
+  left: 9px;
+  box-shadow: 0 0 10px #ff4444;
+}
+
+@keyframes titanBlink {
+  0%, 95%, 100% { transform: scaleY(1); }
+  97% { transform: scaleY(0.1); }
+}
+
+.titan-mouth {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 35px;
+  background: #2a0a0a;
+  border-radius: 0 0 50% 50%;
+  overflow: hidden;
+}
+
+.titan-mouth::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5px;
+  right: 5px;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    #f0f0f0 0px,
+    #f0f0f0 8px,
+    transparent 8px,
+    transparent 12px
+  );
+}
+
+.titan-steam {
+  position: absolute;
+  top: -30px;
+  width: 200px;
+  height: 60px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: steam 2s ease-in-out infinite;
+}
+
+@keyframes steam {
+  0%, 100% { opacity: 0.3; transform: translateY(0) scale(1); }
+  50% { opacity: 0.6; transform: translateY(-15px) scale(1.1); }
+}
+
+.intro-text {
+  position: absolute;
+  top: 8vh;
+  text-align: center;
+  z-index: 3;
+  animation: fadeInText 2s ease-out 1.5s both;
+}
+
+.intro-text h1 {
+  font-family: "Cinzel", serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #e63946;
+  text-shadow: 0 0 30px rgba(230, 57, 70, 0.5);
+  letter-spacing: 4px;
+}
+
+.intro-text p {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #888;
+  letter-spacing: 2px;
+}
+
+@keyframes fadeInText {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ───── Landing Screen ───── */
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  animation: pageFadeIn 0.6s ease-out;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.landing h1 {
+  font-family: "Cinzel", serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #e63946;
+  text-shadow: 0 0 20px rgba(230, 57, 70, 0.3);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.landing p.subtitle {
+  color: #888;
+  font-size: 1.1rem;
+  margin-bottom: 50px;
+}
+
+.season-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* ───── Season Card ───── */
+.season-card {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border: 1px solid #e6394633;
+  border-radius: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.season-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(230, 57, 70, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.season-card:hover {
+  transform: translateY(-6px);
+  border-color: #e63946;
+  box-shadow: 0 12px 40px rgba(230, 57, 70, 0.2);
+}
+
+.season-card:hover::before {
+  opacity: 1;
+}
+
+.season-card h2 {
+  font-family: "Cinzel", serif;
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.season-card .ep-count {
+  color: #aaa;
+  font-size: 0.95rem;
+  position: relative;
+}
+
+/* ───── Episode List View ───── */
+.episode-view {
+  min-height: 100vh;
+  padding: 40px 20px;
+  animation: pageFadeIn 0.6s ease-out;
+}
+
+.episode-view .back-btn {
+  background: none;
+  border: 1px solid #555;
+  color: #ccc;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  margin-bottom: 30px;
+}
+
+.episode-view .back-btn:hover {
+  border-color: #e63946;
+  color: #e63946;
+}
+
+.episode-view h2 {
+  font-family: "Cinzel", serif;
+  font-size: 2rem;
+  color: #e63946;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.episode-list {
+  list-style: none;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.episode-item {
+  background: #141422;
+  border: 1px solid #222;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.episode-item:hover {
+  border-color: #e63946;
+  background: #1a1a2e;
+}
+
+.episode-item .ep-title {
+  font-weight: 600;
+  color: #ddd;
+}
+
+.episode-item .ep-arrow {
+  color: #e63946;
+  font-size: 1.2rem;
+}
+
+/* ───── Review Panel ───── */
+.review-panel {
+  min-height: 100vh;
+  padding: 40px 20px;
+  max-width: 750px;
+  margin: 0 auto;
+  animation: pageFadeIn 0.6s ease-out;
+}
+
+.review-panel .back-btn {
+  background: none;
+  border: 1px solid #555;
+  color: #ccc;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+}
+
+.review-panel .back-btn:hover {
+  border-color: #e63946;
+  color: #e63946;
+}
+
+.review-panel h2 {
+  font-family: "Cinzel", serif;
+  font-size: 1.8rem;
+  color: #e63946;
+  margin-bottom: 30px;
+}
+
+/* ───── Review Form ───── */
+.review-form {
+  background: #141422;
+  border: 1px solid #2a2a3e;
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 36px;
+}
+
+.review-form h3 {
+  font-family: "Cinzel", serif;
+  color: #fff;
+  margin-bottom: 18px;
+  font-size: 1.1rem;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  color: #aaa;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: #0d0d1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  font-family: "Inter", sans-serif;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #e63946;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.submit-btn {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background: #c62d38;
+}
+
+/* ───── Reviews List ───── */
+.reviews-list h3 {
+  font-family: "Cinzel", serif;
+  color: #fff;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+
+.review-card {
+  background: #141422;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.review-card .review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.review-card .reviewer-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.review-card .review-rating {
+  color: #e63946;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.review-card .review-comment {
+  color: #bbb;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.review-card .review-date {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.review-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.review-actions button {
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.review-actions .edit-btn:hover {
+  border-color: #f0ad4e;
+  color: #f0ad4e;
+}
+
+.review-actions .delete-btn:hover {
+  border-color: #e63946;
+  color: #e63946;
+}
+
+.no-reviews {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 30px 0;
+}
+
+/* ───── Edit Form ───── */
+.edit-form {
+  background: #1a1a2e;
+  border: 1px solid #e6394633;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 12px;
+}
+
+.edit-form .form-group {
+  margin-bottom: 12px;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-actions .save-btn {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.edit-actions .save-btn:hover {
+  background: #c62d38;
+}
+
+.edit-actions .cancel-btn {
+  background: transparent;
+  color: #aaa;
+  border: 1px solid #555;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit-actions .cancel-btn:hover {
+  border-color: #aaa;
+  color: #fff;
+}
+
+/* ───── Star Rating ───── */
+.star-rating {
+  display: flex;
+  gap: 4px;
+  margin: 4px 0;
+}
+
+.star-rating .star {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.15s;
+}
+
+.star-rating .star.filled {
+  color: #e63946;
+}
+
+.star-rating .star:hover {
+  color: #ff6b6b;
+}
