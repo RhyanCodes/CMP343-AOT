@@ -76,6 +76,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #000;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 @keyframes titanPeek {
@@ -97,7 +100,7 @@ body {
   max-width: 90vw;
   height: auto;
   filter: drop-shadow(0 0 30px rgba(255, 80, 40, 0.4));
-  mix-blend-mode: lighten;
+  mix-blend-mode: multiply;
 }
 
 .intro-text {
