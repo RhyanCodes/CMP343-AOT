@@ -97,6 +97,7 @@ body {
   max-width: 90vw;
   height: auto;
   filter: drop-shadow(0 0 30px rgba(255, 80, 40, 0.4));
+  mix-blend-mode: lighten;
 }
 
 .intro-text {
