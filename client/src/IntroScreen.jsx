@@ -23,12 +23,7 @@ export default function IntroScreen({ onFinish }) {
       </div>
 
       <div className="titan">
-        <div className="titan-steam"></div>
-        <div className="titan-face">
-          <div className="titan-eye left"></div>
-          <div className="titan-eye right"></div>
-          <div className="titan-mouth"></div>
-        </div>
+        <img src="/titan.png" alt="Colossal Titan" className="titan-img" />
       </div>
 
       <div className="wall"></div>
