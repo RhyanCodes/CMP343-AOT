@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "../.env" });
+try { require("dotenv").config({ path: "../.env" }); } catch(e) {}
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db");
